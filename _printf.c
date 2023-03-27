@@ -15,13 +15,15 @@ int _printf(const char *format, ...)
 	char *s, c, v;
 	int size = 0, count = 0, u;
 	va_list call;
+
 	va_start(call, format);
+
 	while (format && format[count])
 	{
 		if (format[count] == '%')
 		{
 			count++;
-			switch(format[count])
+			switch (format[count])
 			{
 				case 's':
 					s = va_arg(call, char*);
@@ -36,8 +38,6 @@ int _printf(const char *format, ...)
 					v = va_arg(call, int);
 					write(STDOUT_FILENO, &v, 1);
 					break;
-				case 'd i':
-					u = 
 				default:
 					break;
 			}
@@ -51,5 +51,5 @@ int _printf(const char *format, ...)
 		count++;
 	}
 	va_end(call);
-	return(size);
+	return (size);
 }
