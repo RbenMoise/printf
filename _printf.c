@@ -27,8 +27,11 @@ int _printf(const char *format, ...)
 			{
 				case 's':
 					s = va_arg(call, char*);
-					size += (sizeof(s) + 3);
-					write(STDOUT_FILENO, s, size);
+					while (*s)
+					{
+						write(STDOUT_FILENO, s, 1);
+						s++;
+					}
 					break;
 				case 'c':
 					v = va_arg(call, int);
