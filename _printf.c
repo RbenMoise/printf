@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
-​
+
 /**
  * _printf - emulates original printf
  * @format: list of arguments
@@ -13,7 +13,7 @@
 int _printf(const char *format, ...)
 {
 	char *s, c, v;
-	int size = 0, count = 0, u;
+	int size = 0, count = 0;
 	va_list call;
 
 	va_start(call, format);
