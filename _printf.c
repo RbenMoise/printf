@@ -31,15 +31,18 @@ int _printf(const char *format, ...)
 					{
 						write(STDOUT_FILENO, s, 1);
 						s++;
+						size++;
 					}
 					break;
 				case 'c':
 					v = va_arg(call, int);
 					write(STDOUT_FILENO, &v, 1);
+					size++;
 					break;
 				case '%':
 					v = va_arg(call, int);
-					write(STDOUT_FILENO, &v, 1);
+					write(STDOUT_FILENO, "%", 1);
+					size++;
 					break;
 				default:
 					break;
