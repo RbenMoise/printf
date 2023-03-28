@@ -1,19 +1,16 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include "main.h"
 
 /**
- * _printf - emulates original printf
- * @format: list of arguments
+ * print_char - Prints a character to stdout
+ * @arg: A va_list containing the character to be printed
  *
- * Return: 0 for SUCCESS
+ * Return: The number of characters printed
  */
-int _char(char v)
+int print_char(va_list arg)
 {
-	int size = 0;
-	write(STDOUT_FILENO, &v, 1);
-	size++;
-	return (size);
+	char c = va_arg(arg, int);
+
+	return (write(1, &c, 1));
 }

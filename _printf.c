@@ -1,61 +1,43 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include "main.h"
 
 /**
- * _printf - emulates original printf
- * @format: list of arguments
+ * _printf - Prints a formatted string to stdout
+ * @format: A string containing zero or more format specifiers
+ * @...: Zero or more additional arguments to be printed
  *
- * Return: 0 for SUCCESS
+ * Return: The number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	int size = 0, count = 0/*, n, i*/;
-	char *s, c, v/*, u[12]*/;
-	va_list call;
+	va_list args;
+	int i = 0, count = 0;
 
-	va_start(call, format);
-
-	while (format && format[count])
+	va_start(args, format);
+	while (format && format[i])
 	{
-		if (format[count] == '%')
+		if (format[i] == '%')
 		{
-			count++;
-			switch (format[count])
-			{
-				case 's':
-					s = va_arg(call, char*);
-					while (*s)
-					{
-						write(STDOUT_FILENO, s, 1);
-						s++;
-						size++;
-					}
-					break;
-				case 'c':
-					v = va_arg(call, int);
-					write(STDOUT_FILENO, &v, 1);
-					size++;
-					break;
-				case '%':
-					v = va_arg(call, int);
-					write(STDOUT_FILENO, "%", 1);
-					size++;
-					break;
-				default:
-					break;
-			}
+			if (format[i + 1] == 'c')
+				count += print_char(args);
+			else if (format[i + 1] == 's')
+				count += print_string(args);
+			else if (format[i + 1] == '%')
+				count += write(1, "%", 1);
+			else if (format[i + 1] == 'd' || format[i + 1] == 'i')
+				count += print_integer(args);
+			i += 2;
 		}
 		else
 		{
-			c = format[count];
-			write(STDOUT_FILENO, &c, 1);
-			size++;
+			write(1, &format[i], 1);
+			count++;
+			i++;
 		}
-		count++;
 	}
-	va_end(call);
-	return (size);
-}	
+	va_end(args);
+
+	return (count);
+}
+

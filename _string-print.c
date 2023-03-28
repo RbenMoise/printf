@@ -1,23 +1,20 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include <string.h>
 #include "main.h"
 
 /**
- * _printf - emulates original printf
- * @format: list of arguments
+ * print_string - Prints a string to stdout
+ * @arg: A va_list containing the string to be printed
  *
- * Return: 0 for SUCCESS
+ * Return: The number of characters printed
  */
-int _string(char *s)
+int print_string(va_list arg)
 {
-	int size = 0;	
-	while (*s)
-	{
-	write(STDOUT_FILENO, s, 1);
-	s++;
-	size++;
-	}
-	return (size);
+	char *str = va_arg(arg, char *);
+
+	if (str == NULL)
+		str = "(null)";
+
+	return (write(1, str, strlen(str)));
 }
