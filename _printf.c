@@ -27,15 +27,22 @@ int _printf(const char *format, ...)
 			{
 				case 's':
 					s = va_arg(call, char*);
-					_string(s);
+					while (*s)
+					{
+						write(STDOUT_FILENO, s, 1);
+						s++;
+						size++;
+					}
 					break;
 				case 'c':
 					v = va_arg(call, int);
-					_char(v);
+					write(STDOUT_FILENO, &v, 1);
+					size++;
 					break;
 				case '%':
 					v = va_arg(call, int);
-					_char('%');
+					write(STDOUT_FILENO, "%", 1);
+					size++;
 					break;
 				default:
 					break;
@@ -51,4 +58,4 @@ int _printf(const char *format, ...)
 	}
 	va_end(call);
 	return (size);
-}
+}	
