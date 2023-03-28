@@ -2,7 +2,8 @@
 #define MAIN_H
 
 int _printf(const char *format, ...);
-int _string(char *s);
-int _char(char v);
+int print_integer(va_list arg);
+int print_string(va_list arg);
+int print_char(va_list arg);
 
 #endif
