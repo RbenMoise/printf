@@ -42,11 +42,9 @@ int _printf(const char *format, ...)
 				{
 					n = va_arg(call, int);
 					i = 0;
-					do
-					{
+					do {
 						u[i++] = (n % 10) + '0';
-					}
-					while ((n /= 10) > 0);
+					} while ((n /= 10) > 0);
 					while (--i >= 0)
 						size += write(1, &u[i], 1);
 				}
