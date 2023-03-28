@@ -12,8 +12,8 @@
  */
 int _printf(const char *format, ...)
 {
-	int size = 0, count = 0, n, num, i = 0, j = 0;
-	char *s, c, v, *x, u[11];
+	int size = 0, count = 0, n, i;
+	char *s, c, v, u[12];
 	va_list call;
 
 	va_start(call, format);
@@ -37,26 +37,22 @@ int _printf(const char *format, ...)
 					v = va_arg(call, int);
 					_char('%');
 					break;
+				case 'd':
 				case 'i':
+				{
 					n = va_arg(call, int);
-					x = malloc(11 * sizeof(char));
-					if (!x)
-					return (-1);
-					while (n != 0)
+					i = 0;
+					do
 					{
-						num = n % 10;
-						u[i++] = num + '0';
-						n /= 10;
+						u[i++] = (n % 10) + '0';
 					}
-					u[i++] = '\0';
-					while (i >= 0)
-					{
-						x[j++] = u[i--];
-					}
-					_string(x);
-					free(x);
-					default:
+					while ((n /= 10) > 0);
+					while (--i >= 0)
+						size += write(1, &u[i], 1);
+				}
 					break;
+					default:
+						break;
 			}
 		}
 		else
