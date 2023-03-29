@@ -27,6 +27,8 @@ int _printf(const char *format, ...)
 				count += write(1, "%", 1);
 			else if (format[i + 1] == 'd' || format[i + 1] == 'i')
 				count += print_integer(args);
+			else if (format[i + 1] == 'b')
+				count += print_binary(args);
 			i += 2;
 		}
 		else
